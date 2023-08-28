@@ -1,0 +1,15 @@
+.uuploadbox{
+display: grid;
+justify-content: center;
+align-items: center;
+height: 400px;
+width: 700px;
+/* background-color: black; */
+border-radius: 10px;
+border: 2px solid black;
+margin-left: 30vw;
+margin-top: 6vw;
+margin-bottom: 4vw;
+padding: 5.5vw 0vw;
+
+}

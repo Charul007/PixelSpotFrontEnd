@@ -1,0 +1,17 @@
+.childdiv
+{
+    height: 250;
+    padding:15px;   
+    text-align: right;
+}
+
+.parentdiv
+{
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-around;
+    padding: 10;
+    background-color: rgb(255, 255, 255);
+    padding-top: 100px;
+
+}

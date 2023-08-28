@@ -1,0 +1,93 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    width: 100vw;
+height: 100vh;
+display: grid;
+grid-template-columns: 200px 1fr;
+grid-template-rows: 60px 1fr;
+grid-template-areas:
+ "side header"
+"side main";
+}
+.hea{
+    background-color: black;
+    grid-area: header;
+}
+.men{
+    background-color: rgb(117, 117, 117);
+    grid-area: side;
+}
+.mai{
+    background-color: rgb(209, 214, 218);
+    grid-area: main;
+    padding: 10px;
+    display: grid;
+    gap: 10px
+    ;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas: 
+    "c1 c2 c3 c4 c5 c5"
+    "c6 c7 c8 c9 c5 c5"
+    "c10 c10 c10 c10 c5 c5"
+    "c10 c10 c10 c10 c12 c12"
+    " c11 c11 c11 c11 c12 c12"
+    "c11 c11 c11 c11 c12 c12";
+
+}
+.card{
+    background-color: bisque;
+}
+.card:nth-child(1)
+{
+    grid-area: c1;
+}
+.card:nth-child(2)
+{
+    grid-area: c2;
+}
+.card:nth-child(3)
+{
+    grid-area: c3;
+}
+.card:nth-child(4)
+{
+    grid-area: c4;
+}
+.card:nth-child(5)
+{
+    grid-area: c5;
+}
+
+.card:nth-child(6)
+{
+    grid-area: c6;
+}
+.card:nth-child(7)
+{
+    grid-area: c7;
+}
+.card:nth-child(8)
+{
+    grid-area: c8;
+}
+
+.card:nth-child(9)
+{
+    grid-area: c9;
+}
+.card:nth-child(10)
+{
+    grid-area: c10;
+}
+.card:nth-child(11)
+{
+    grid-area: c11;
+}
+.card:nth-child(12)
+{
+    grid-area: c12;
+}
