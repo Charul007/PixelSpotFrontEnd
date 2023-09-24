@@ -4,8 +4,13 @@ import
 {BsCart3, BsGrid1X2Fill, BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, 
   BsListCheck, BsMenuButtonWideFill, BsFillGearFill}
  from 'react-icons/bs'
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function Sidebar({openSidebarToggle, OpenSidebar}) {
+
+    const history = useHistory();
+
+
   return (
     <aside id="sidebar" className={openSidebarToggle ? "sidebar-responsive": ""}>
         <div className='sidebar-title'>
@@ -17,12 +22,12 @@ function Sidebar({openSidebarToggle, OpenSidebar}) {
 
         <ul className='sidebar-list'>
             <li className='sidebar-list-item'>
-                <a href="">
+                <a onClick={()=>{history.push('/admin');}}>
                     <BsGrid1X2Fill className='icon'/> Dashboard
                 </a>
             </li>
             <li className='sidebar-list-item'>
-                <a href="">
+                <a onClick={()=>{history.push('/contactUs');}}>
                     <BsFillArchiveFill className='icon'/> Mails
                 </a>
             </li>
@@ -32,7 +37,7 @@ function Sidebar({openSidebarToggle, OpenSidebar}) {
                 </a>
             </li> */}
             <li className='sidebar-list-item'>
-                <a href="">
+                <a  onClick={()=>{history.push('/adminAboutUs');}}>
                     <BsPeopleFill className='icon'/> About Us
                 </a>
             </li>
@@ -47,8 +52,8 @@ function Sidebar({openSidebarToggle, OpenSidebar}) {
                 </a>
             </li> */}
             <li className='sidebar-list-item'>
-                <a href="">
-                    <BsFillGearFill className='icon'/> Setting
+                <a  onClick={()=>{history.push('/adminsetting');}}>
+                    <BsFillGearFill className='icon'/> Edit
                 </a>
             </li>
         </ul>

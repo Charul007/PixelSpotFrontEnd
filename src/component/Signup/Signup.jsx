@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 //import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import url  from '../url.json';
+
 
 export default function   () {
 
@@ -85,7 +87,7 @@ u_role:"CUSTOMER"
  setAllEntry([...allEntry , newEntry]);
 
 //  try {
-  const response = await fetch('http://localhost:54610/api/User/Register', {
+  const response = await fetch(url.url+'/api/User/Register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

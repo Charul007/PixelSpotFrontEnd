@@ -4,12 +4,22 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useHistory } from 'react-router-dom';
+import url  from '../url.json';
+
 
 
 
 
 function UploadImage() {
   const history = useHistory();
+
+
+  if(localStorage.getItem("login")==null)
+  {
+    history.push('/login');
+  }
+
+
   const [image, setImage] = useState('');
   const user = JSON.parse(localStorage.getItem("login"));
 
@@ -23,7 +33,7 @@ function UploadImage() {
       const formData = new FormData();
       formData.append('image', image);
       
-      axios.post('http://localhost:54610/api/Photo/UploadPhoto/'+user.u_id, formData)
+      axios.post( url.url + '/api/Photo/UploadPhoto/'+user.u_id, formData)
         .then((res) => {
           console.log(res);
           toast.success('Photo Upload Successfull !', {
@@ -42,7 +52,7 @@ function UploadImage() {
       console.log('No image selected');
     }
 
-    axios.get('http://localhost:54610/api/Photo/getPhotos')
+    axios.get( url.url + '/api/Photo/getPhotos')
     .then((res) => {
       console.log(res);
     })

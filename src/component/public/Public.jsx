@@ -1,6 +1,8 @@
 import '../public/Public.css';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import React, { useState, useEffect} from "react";
+import url  from '../url.json';
+
 
 
 
@@ -27,7 +29,7 @@ debugger;
       debugger;
     }
   };
-  xhr.open("GET", "http://localhost:54610/api/Photo/getProfile/"+user.u_id);
+  xhr.open("GET", url.url+"/api/Photo/getProfile/"+user.u_id);
   xhr.send();
 
 };
@@ -48,7 +50,7 @@ debugger;
               debugger;
                     }
                   };
-                  xhr.open("GET", "http://localhost:54610/api/Photo/GetPhotoPublicByUserId/"+user.u_id);
+                  xhr.open("GET", url.url + "/api/Photo/GetPhotoPublicByUserId/"+user.u_id);
                   xhr.send();
           };
 

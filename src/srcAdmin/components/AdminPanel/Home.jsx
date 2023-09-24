@@ -1,46 +1,16 @@
 import React from 'react'
 import { useEffect,useState } from "react";
-import axios from "../../../srcAdmin/axios.jsx";
-import '../../style.css';
+// import 'boxicons';
+import axios from "../axios";
+import '../style.css';
 import 
 { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill}
  from 'react-icons/bs'
-
-
  import 
  { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } 
  from 'recharts';
-import { DeleteIcon, HamburgerIcon } from '@chakra-ui/icons';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min.js';
-import { IconButton, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 
 function Home() {
-
-const history = useHistory();
-
-debugger;
-  if(localStorage.getItem("login")!=null)
-  {
-      const userCheck = JSON.parse(localStorage.getItem("login"));
-
-        if(userCheck == null)
-        {
-          history.push('/');
-        }
-      if(userCheck.u_role != "ADMIN")
-      {
-       history.push('/');
-      }
-    }
-    else{
-      history.push('/login');
-    }
-   
-  
-
-
-
-
 
     const data = [
         {
@@ -97,27 +67,22 @@ debugger;
     const [totalDownloads,setTotalDownloads]= useState("");
     const [allUsers,setAllUsers]= useState([]);
     const [allSpams,setAllSpams]= useState([]);
-    const [spamsPhoto,setSpamsPhoto]= useState([] || null);
-
 
     const [isError,setIsError] = useState("");
     
     const getActiveUsers =async()=>{
-      try {   
+      try {
         const res = await axios.get("/Admin/activeUsers");
         setActiveUsers(res.data);
-        
         console.log(res.data);
       } catch (error) {
-        
         setIsError(error.message);
       }
     }
 
     const getTotalUsers =async()=>{
         try {
-          
-          const res = await axios.get("/Admin/getTotalUser");
+          const res = await axios.get("/Admin/totalUsers");
           setTotalUsers(res.data);
           console.log(res.data);
         } catch (error) {
@@ -157,8 +122,6 @@ debugger;
 
       const getTotalSpams =async()=>{
         try {
-          debugger;
-
           const res = await axios.get("/Admin/getSpamCount");
           setTotalSpams(res.data);
           console.log(res.data);
@@ -168,7 +131,7 @@ debugger;
       }
       const getTotalDownloads =async()=>{
         try {
-          const res = await axios.get("/Admin/getDownloadCount");
+          const res = await axios.get("/Admin/getPhotoCount");
           setTotalDownloads(res.data);
           console.log(res.data);
         } catch (error) {
@@ -188,79 +151,9 @@ debugger;
 
       const getAllSpams =async()=>{
         try {
-          debugger;
-          const res = await axios.get("/Admin/getSpam");
+          const res = await axios.get("/Admin/getSpams");
           setAllSpams(res.data);
           console.log(res.data);
-        } catch (error) {
-          setIsError(error.message);
-        }
-      }
-
-
-      const getPhotoById =async(id)=>{
-        try {
-          const res = await axios.get("/Photo/GetPhotoPublicById/"+id);
-          setSpamsPhoto(res.data[0])
-          console.log("photp --- ",res.data[0].p_name);
-        } catch (error) {
-          setIsError(error.message);
-        }
-      }
-
-
-      const deletePhoto =async(id)=>{
-        try {
-         const data = {
-           p_id: id
-         };
-          const res = await axios.post("/Admin/delPhoto/" ,data);
-         
-          console.log("photdel --- ",res);
-        } catch (error) {
-          setIsError(error.message);
-        }
-      }
-
-      const [getCategory, setCategory] = useState([]);
-
-      const deleteCategory = async(id,name) =>
-      {
-        try{
-          const data = {
-            pc_id: id,
-            pc_name : name
-          };
-          const res = await axios.post("/Admin/delCategory" ,data);
-          getCategories();
-        } catch (error) {
-          setIsError(error.message);
-        }
-      }
-
-
-      const getCategories = async() =>
-      {
-        debugger;
-        try{
-          const res = await axios.get("/Photo/getAllCategory");
-          setCategory(res.data)
-        } catch (error) {
-          setIsError(error.message);
-        }
-      }
-      
-
-      const addCategory = async(event) =>
-      {
-        const formData = new FormData(event.target); // Create a FormData object from the form
-        const catValue = formData.get('cat');
-        const data ={"pc_name" : catValue};
-        debugger;
-        try{
-          const res = await axios.post("/Admin/setCategory" ,data);
-          getCategories();
-
         } catch (error) {
           setIsError(error.message);
         }
@@ -276,25 +169,15 @@ debugger;
         getTotalDownloads();
         getAllUsers();
         getAllSpams();
-        getCategories();
       }, []);
 
   return (
-    <main className='main-container' style={{padding:50}}>
-      <script src="https://cdn.jsdelivr.net/npm/react-icons@4.10.1/fa/index.esm.min.js"></script>
-     <div style={{display:'flex',justifyContent:'space-between'}}>
-      {/* <h3 className='dashboard-title' onClick={()=>{history.push('/adminAboutUs');}} >AboutUs</h3> */}
-      {/* <h3 className='dashboard-title' onClick={()=>{history.push('/adminsetting');}}>Setting</h3> */}
-      <h3 className='dashboard-title' onClick={()=>{history.push('/Sidebar');}}>Slider</h3>
-
-    </div>
-    <br></br>    <br></br> <br></br>
-
+    <main className='main-container'>
        <div className='main-title'>
             <h3 className='dashboard-title'>DASHBOARD</h3>
         </div>
 
-        <div className='main-cards' style={{display: 'flex',alignItems: 'center', justifyContent: 'space-between'}}>
+        <div className='main-cards'>
             <div className='card'>
                 <div className='card-inner'>
                     <h3>TOTAL USERS</h3>
@@ -337,13 +220,13 @@ debugger;
                 </div>
                 <h3>{isError !== "" ? isError : activeUsers}</h3>
             </div>
-            {/* <div className='card'>
+            <div className='card'>
                 <div className='card-inner'>
                     <h3>TOTAL DOWNLOADS</h3>
                     <BsPeopleFill className='card_icon'/>
                 </div>
                 <h3>{isError !== "" ? isError : totalDownloads}</h3>
-            </div> */}
+            </div>
             <div className='card'>
                 <div className='card-inner'>
                     <h3>TOTAL SPAMREPORTS</h3>
@@ -369,7 +252,7 @@ debugger;
                   
                   <div class="col-lg-7 col-md-6 col-sm-12">
                         <div class="table-responsive">
-                            <table class="table" style={{backgroundColor:"white"}}>
+                            <table class="table">
                                 <thead class="thead-light">
                                     <tr>
                                         <th>Id</th>
@@ -380,7 +263,7 @@ debugger;
                                 {allUsers.map((user, index) => (
                       <tr key={index}>
                                         <td>{user.u_id}</td>
-                                        <td>{user.u_first_name} { user.u_last_name}</td>
+                                        <td>{user.u_first_name && user.u_last_name}</td>
                                         <td></td></tr>
                     ))}
                                 </tbody>
@@ -400,50 +283,36 @@ debugger;
                 {/* <h3>{allSpams.map((user, index) => (
                     <li key={index}>{user.sp_id && user.sp_details}</li>
                   ))}</h3> */}
-                  <div class="table-data" style={{display:'flex'}}>
-                    <div class="order">
+                  <div class="">
+                    <div class="">
 
-                      <table className='table' style={{width:'400px' ,backgroundColor:"white",margin:20}}>
+                      <table className='table'>
                         <thead>
                           <tr>
-                            <th>Id</th>
-                            <th>User Name</th>
-                            <th>Photo Id</th>
-                            <th>Action</th>
+                            <th scope='col'>User id</th>
+                            <th scope='col'>User Name</th>
                           </tr>
                         </thead>
-                        <tbody>{allSpams.map((spam, index) => (
+                        <tbody>{allSpams.map((user, index) => (
                                 <tr key={index}>
                                 <td>
-                                   <p>{spam.sp_id}</p>
-                                </td>
-                                 <td>{spam.sp_details}</td>
-                                 <td style={{cursor:'pointer'}} onClick={()=>{getPhotoById(spam.p_id)}}>{spam.p_id}</td>
-                                 <td><DeleteIcon
-                                 onClick={()=>{ deletePhoto(spam.p_id)}}
-                                 /></td>
-
+                              <p>{user.sp_id}</p>
+                            </td>
+                            <td>{user.sp_details}</td>
                                 </tr>
-                                
                               ))}
                         </tbody>
                       </table>
                     </div>
-                    <div style={{marginTop:40,height:20,width:100,background:"white"}}>
-                      <img  style={{borderRadius:'0%'}}
-                      src={ spamsPhoto.length !== 0 ? spamsPhoto.p_name : "https://clipart-library.com/images/8TxrBGznc.jpg" } alt="img">
-                      </img>
-                    </div>
-
                   </div>
                  </div>
+                
         </div>
-
         {/* total spam data end */}
+
         <div className="main-img-show">
                 <div className="imge-show">hi</div>
         </div>
-
                           
                           {/* chart start */}
                     
@@ -476,10 +345,10 @@ debugger;
                                 height={300}
                                 data={data}
                                 margin={{
-                                    top: 5,
+                                    top: 5, 
                                     right: 30,
                                     left: 20,
-                                    bottom: 5,
+                                    bottom: 5, 
                                 }}
                                 >
                                 <CartesianGrid strokeDasharray="3 3" />
@@ -494,48 +363,10 @@ debugger;
 
                         </div>
 
-                       {/* chart end */}
-                       <div className="main-footer">
-                      <div style={{backgroundColor:'black',display:'flex',justifyContent:'space-between'}}>
-
-                        { getCategory.map((item, index) => (
-                          
-                            <div style={{padding:10}}>
-                               <Menu>
-                                <MenuButton
-                                  as={IconButton} aria-label='Options' icon={<HamburgerIcon />}  variant='ghost' color='white'  filter='revert'
-                                  _hover={{
-                                    bg: 'white',
-                                    color: "black",
-                                  }}
-                                  _active={{
-                                    bg: 'white',
-                                    color: "black",
-                                  }}
-                                  style={{ marginRight: '-20px',cursor:'pointer'}}
-                                />
-                                <MenuList>
-                                  <MenuItem onClick={() => deleteCategory(item.pc_id,item.pc_name)} >
-                                    Delete
-                                  </MenuItem>
-                                </MenuList>
-                              </Menu>
-                            <div key={index}  style={{height:'40px',backgroundColor:'gray',padding:10}} >{item.pc_name}</div>
-                            </div>
-
-                        ))}
+                        {/* chart end */}
+                      <div className="main-footer">
+                      <div className="footer"><h2>foter of the page</h2></div>
                       </div>
-
-                      </div>
-                      <div style={{color:'black'}}>Add Category 
-                      <form onSubmit={addCategory}>
-                      <input type='text' name='cat' id='cat'></input>
-                      <input type='submit' value='submit'></input>
-
-                      </form>
-                      </div>
-
-
     </main>
   )
 }

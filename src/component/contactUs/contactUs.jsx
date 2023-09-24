@@ -1,5 +1,7 @@
 import React from "react";
 import '../contactUs/contactUs.css';
+import url  from '../url.json';
+
 
 
 function ContactUs() {
@@ -54,7 +56,7 @@ function ContactUs() {
         <br/> <div style={{textAlign: 'center',fontSize:'xx-large'}} >Contact Us</div><br/><br/>
       
   
-        <div style={{display:'flex'}}>
+        <div style={{display:'flex',backgroundColor: 'cadetblue'}}>
           
        <div style={{width:'30%'}} ></div>
       

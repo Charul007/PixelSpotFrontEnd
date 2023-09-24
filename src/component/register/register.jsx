@@ -1,6 +1,8 @@
 import React from "react";
 import { useHistory } from 'react-router-dom';
 import '../register/register.css';
+import url  from '../url.json';
+
 
 
 function Register() {

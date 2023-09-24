@@ -1,4 +1,4 @@
-.parentdiv
+.parentdivs
 {
     display: flex;
     flex-flow: wrap;
@@ -54,7 +54,7 @@
     position: relative;
     /* margin-left: 60%; */
     color: aliceblue;
-    top: 80%;
+    top: 75%;
     margin-right: 10px;
     cursor: pointer;
    

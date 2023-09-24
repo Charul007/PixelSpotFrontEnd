@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 
 import '../forgetPassword/ForgetPassword.css';
 
+import url  from '../url.json';
+
 
 function ForgetPassword(props) {
 
@@ -46,7 +48,7 @@ function ForgetPassword(props) {
        }
      };
  
-     xhr.open('POST','http://localhost:54610/api/Email/opt');
+     xhr.open('POST', url.url + '/api/Email/opt');
      xhr.setRequestHeader("Content-Type", "application/json");
      xhr.send(JSON.stringify(OTP));
      

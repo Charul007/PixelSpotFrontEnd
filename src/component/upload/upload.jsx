@@ -1,12 +1,19 @@
 import React from "react";
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import url  from '../url.json';
+
 
 import '../upload/upload.css';
 
 
 function Upload() {
 
-  // const history =  useHistory()
+  const history = useHistory()
+
+  if(localStorage.getItem("login")==null)
+  {
+    history.push('/login');
+  }
 
   
 
@@ -17,12 +24,7 @@ function Upload() {
     var users =  JSON.parse(localStorage.getItem("login"));
 
     const formData = new FormData(form);
-    // formData.append("file", form.querySelector("#fileInput").files[0]);
-  //   formData.append(
-  //     "file",
-  //     this.state.selectedFile,
-  //     this.state.selectedFile.name
-  // );
+
 
 
   var imagedata = document.querySelector('input[type="file"]').files[0];
@@ -42,7 +44,7 @@ function Upload() {
        }
      };
  
-     xhr.open('POST','http://localhost:54610/api/Photo/UploadPhoto/'+users.u_id );
+     xhr.open('POST', url.url + '/api/Photo/UploadPhoto/'+users.u_id );
      debugger;
      xhr.setRequestHeader("Accept", "application/json");
 
