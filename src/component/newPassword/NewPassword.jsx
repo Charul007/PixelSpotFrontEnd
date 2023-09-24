@@ -2,6 +2,7 @@ import React from "react";
 import { useHistory } from 'react-router-dom';
 
 import '../newPassword/NewPassword.css';
+import url  from '../url.json';
 
 
 function NewPassword(props) {
@@ -51,7 +52,7 @@ function NewPassword(props) {
        }
      };
  
-     xhr.open('POST','http://localhost:54610/api/Email/setNewPassword');
+     xhr.open('POST',url.url + '/api/Email/setNewPassword');
      xhr.setRequestHeader("Content-Type", "application/json");
      xhr.send(JSON.stringify(deatils));
     }

@@ -64,7 +64,7 @@ function Footer() {
               <div style={{backgroundColor:'white',width:'15%'}} >
                   <div style={{ marginLeft: '40'}}>About</div>
                   <ul style={{listStyleType:'none'}}>
-                      <li>About Us</li>
+                      <li onClick={()=>{history.push('/adminAboutUs')}}>About Us</li>
                       <li>FAQ</li>
                       <li>Licence Summary</li>
                       <li>Terms of Services</li>

@@ -5,13 +5,18 @@ import { useHistory } from 'react-router-dom';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { IconButton, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { HamburgerIcon } from '@chakra-ui/icons';
-
-
-
+import url  from '../url.json';
 
 
 function Collection()
 {
+
+
+  const history = useHistory();
+  if(localStorage.getItem("login") == null)
+  {
+    history.push('/login');
+  }
 
    const user = JSON.parse(localStorage.getItem("login"));
 
@@ -20,7 +25,6 @@ function Collection()
   const [count, setCount] = useState();
   const [userProfile, setUserProfile] = useState([]);
 
-  const history = useHistory();
 
 
 
@@ -38,7 +42,7 @@ const getProfile=()=>
       // debugger;
     }
   };
-  xhr.open("GET", "http://localhost:54610/api/Photo/getProfile/"+user.u_id);
+  xhr.open("GET", url.url +"/api/Photo/getProfile/"+user.u_id);
   xhr.send();
 
 };
@@ -59,7 +63,7 @@ const getProfile=()=>
               // debugger;
                     }
                   };
-                  xhr.open("GET", "http://localhost:54610/api/Photo/getCollectionByUserId/"+user.u_id);
+                  xhr.open("GET", url.url +"/api/Photo/getCollectionByUserId/"+user.u_id);
                   xhr.send();
           };
 
@@ -67,8 +71,11 @@ const getProfile=()=>
     }, [collection,collectionPhoto,count]);
 
 
+    const [ccid, seccid] = useState("");
+
     const getCollectionById = (cId) =>
     {
+      seccid(cId);
       const xhr = new XMLHttpRequest();
       xhr.onreadystatechange = () => {
         if (xhr.readyState === 4 && xhr.status === 200) {
@@ -80,7 +87,7 @@ const getProfile=()=>
   // debugger;
         }
       };
-      xhr.open("GET", "http://localhost:54610/api/Photo/photoUserCollection?uId="+user.u_id+"&ccId="+cId);
+      xhr.open("GET", url.url +"/api/Photo/photoUserCollection?uId="+user.u_id+"&ccId="+cId);
       xhr.send();
 
     };
@@ -93,7 +100,7 @@ const getProfile=()=>
     
         const formData = new FormData(form);
         const collectionName = (formData.get('collectionName'));
-console.log("colection",collectionName);
+        console.log("colection",collectionName);
             const xhr = new XMLHttpRequest();
             xhr.onreadystatechange = () => {
               if (xhr.readyState === 4 && xhr.status === 200) {
@@ -101,7 +108,7 @@ console.log("colection",collectionName);
                 alert('Added to collection');
               }
             };
-            xhr.open("POST", "api/Photo/setCollection/"+user.u_id);
+            xhr.open("POST", url.url +"api/Photo/setCollection/"+user.u_id);
             xhr.send(JSON.stringify(formData));
 
 
@@ -130,7 +137,7 @@ console.log("colection",collectionName);
   // debugger;
         }
       };
-      xhr.open("POST", "http://localhost:54610/api/Photo/removeCollection/"+ user.u_id);
+      xhr.open("POST", url.url +"/api/Photo/removeCollection/"+ user.u_id);
       xhr.setRequestHeader("Content-Type", "application/json");
       xhr.send(JSON.stringify(data));
 
@@ -149,12 +156,13 @@ console.log("colection",collectionName);
         if (xhr.readyState === 4 && xhr.status === 200) {
   // debugger;
           const responseData = JSON.parse(xhr.responseText);
+          getCollectionById(ccid);
           history.push('/collection');
           
   // debugger;
         }
       };
-      xhr.open("POST", "http://localhost:54610/api/Photo/removePhotoFromCollection/");
+      xhr.open("POST", url.url +"/api/Photo/removePhotoFromCollection/");
       xhr.setRequestHeader("Content-Type", "application/json");
       xhr.send(JSON.stringify(data));
 
@@ -268,7 +276,7 @@ console.log("colection",collectionName);
                   </MenuItem>
                 </MenuList>
               </Menu>
-                  <img src={item.p_name} alt='img' style={{height:'inherit'}} ></img>
+                  <img  src={item.p_name} alt='img' style={{height:'inherit',borderRadius:'0%'}} ></img>
                 </div>
 
             </div>

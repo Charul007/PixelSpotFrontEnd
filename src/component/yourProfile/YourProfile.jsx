@@ -5,10 +5,20 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import { IconButton, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { EditIcon, HamburgerIcon } from '@chakra-ui/icons';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import url  from '../url.json';
 
 
 
 function YourProfile() {
+
+  const history = useHistory()
+
+  if(localStorage.getItem("login")==null)
+  {
+    history.push('/login');
+  }
+
 
   const user = JSON.parse(localStorage.getItem("login"));
 
@@ -33,7 +43,7 @@ function YourProfile() {
         // debugger;
       }
     };
-    xhr.open("GET", "http://localhost:54610/api/Photo/getCollectionByUserId/" + user.u_id);
+    xhr.open("GET", url.url + "/api/Photo/getCollectionByUserId/" + user.u_id);
     xhr.send();
 
   }
@@ -52,7 +62,7 @@ function YourProfile() {
         // debugger;
       }
     };
-    xhr.open("GET", "http://localhost:54610/api/Photo/getAllCategory");
+    xhr.open("GET", url.url + "/api/Photo/getAllCategory");
     xhr.send();
 
   }
@@ -69,32 +79,33 @@ debugger;
       debugger;
     }
   };
-  xhr.open("GET", "http://localhost:54610/api/Photo/getProfile/"+user.u_id);
+  xhr.open("GET", url.url + "/api/Photo/getProfile/"+user.u_id);
   xhr.send();
 
 };
 
+const fetchData = () => {
+  // debugger;
+  const xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = () => {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+
+      const responseData = JSON.parse(xhr.responseText);
+      setAllPhoto(responseData);
+      console.log(responseData);
+      getCategory();
+      getCollection();
+      getProfile();
+      // debugger;
+    }
+  };
+  xhr.open("GET", url.url + "/api/Photo/GetPhotoByUserId/" + user.u_id);
+  xhr.send();
+};
 
   useEffect(() => {
     // debugger;
-    const fetchData = () => {
-      // debugger;
-      const xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-
-          const responseData = JSON.parse(xhr.responseText);
-          setAllPhoto(responseData);
-          console.log(responseData);
-          getCategory();
-          getCollection();
-          getProfile();
-          // debugger;
-        }
-      };
-      xhr.open("GET", "http://localhost:54610/api/Photo/GetPhotoByUserId/" + user.u_id);
-      xhr.send();
-    };
+  
 
     fetchData();
   }, []);
@@ -120,7 +131,7 @@ debugger;
        debugger;
      }
    };
-   xhr.open("POST", "http://localhost:54610/api/Photo/setPublic");
+   xhr.open("POST", url.url + "/api/Photo/setPublic");
    xhr.setRequestHeader('Content-Type', 'application/json');
    xhr.send(JSON.stringify(data));
 
@@ -145,7 +156,7 @@ debugger;
        debugger;
      }
    };
-   xhr.open("POST", "http://localhost:54610/api/Photo/setPrivate");
+   xhr.open("POST", url.url + "/api/Photo/setPrivate");
    xhr.setRequestHeader('Content-Type', 'application/json');
    xhr.send(JSON.stringify(data));
 
@@ -168,7 +179,7 @@ debugger;
         debugger;
       }
     };
-    xhr.open("POST", "http://localhost:54610/api/Photo/setPhotoToCollection/"+ pid);
+    xhr.open("POST", url.url +"/api/Photo/setPhotoToCollection/"+ pid);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(data));
 
@@ -188,7 +199,7 @@ debugger;
         debugger;
       }
     };
-    xhr.open("POST", "http://localhost:54610/api/Photo/setPhotoToCategory/"+ pid);
+    xhr.open("POST", url.url +"/api/Photo/setPhotoToCategory/"+ pid);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(data));
 
@@ -205,11 +216,11 @@ const tackBackUP = () =>
       if (xhr.readyState === 4 && xhr.status === 200) {
 
         const responseData = JSON.parse(xhr.responseText);
-  
+        fetchData();
         debugger;
       }
     };
-    xhr.open("POST", "http://localhost:54610/api/Photo/backupPhoto");
+    xhr.open("POST", url.url + "/api/Photo/backupPhoto");
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(data));
 };
@@ -227,11 +238,12 @@ const deletePhoto = (id) =>
       if (xhr.readyState === 4 && xhr.status === 200) {
 
         const responseData = JSON.parse(xhr.responseText);
-  
+        fetchData();
+
         // debugger;
       }
     };
-    xhr.open("POST", "http://localhost:54610/api/Photo/deletePhoto");
+    xhr.open("POST", url.url + "/api/Photo/deletePhoto");
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(data));
 };
@@ -253,7 +265,7 @@ const [image, setImage] = useState('');
       const formData = new FormData();
       formData.append('image', image);
       
-      axios.post('http://localhost:54610/api/Photo/UploadPhoto/'+user.u_id, formData)
+      axios.post( url.url + '/api/Photo/UploadPhoto/'+user.u_id, formData)
         .then((res) => {
           debugger;
           console.log(res);
@@ -298,11 +310,13 @@ const setProfile=(id)=>
     if (xhr.readyState === 4 && xhr.status === 200) {
 
       const responseData = JSON.parse(xhr.responseText);
+      getProfile();
+
 
       // debugger;
     }
   };
-  xhr.open("POST", "http://localhost:54610/api/Photo/setProfile");
+  xhr.open("POST", url.url + "/api/Photo/setProfile");
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.send(JSON.stringify(data));
 

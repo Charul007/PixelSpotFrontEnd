@@ -39,6 +39,8 @@ import React,{ useState, useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
 import '../nav/nav.css';
 import da from '../nav/data.json';
+import url  from '../url.json';
+
 
 
 function Nav()
@@ -66,7 +68,7 @@ function Nav()
                 // setData(da);
               }
             };    
-            xhr.open("GET", "http://localhost:54610/api/Photo/getAllCategory");
+            xhr.open("GET", url.url + "/api/Photo/getAllCategory");
             xhr.send();
     };
 
@@ -96,7 +98,7 @@ function Nav()
           }
         };
     
-        xhr.open('GET','http://localhost:54610/api/Photo/photoCategoryName?categoryName='+category);
+        xhr.open('GET',url.url + '/api/Photo/photoCategoryName?categoryName='+category);
         xhr.send();
         
     };

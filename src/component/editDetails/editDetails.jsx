@@ -1,11 +1,23 @@
 import React from "react";
+import { useHistory } from 'react-router-dom';
+
 import '../editDetails/editDetails.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import url  from '../url.json';
+
+
 
 
 function editDetails() {
 
+
+  // const history = useHistory();
+
+  // if(localStorage.getItem("login") == null)
+  // {
+  //   history.push('/login');
+  // }
 
   const user = JSON.parse(localStorage.getItem("login"));
 
@@ -66,12 +78,13 @@ function editDetails() {
                        autoClose: 2000, 
                      });
                    }
-                   
+                   debugger;
+
                     
                   }
                 };
             
-                xhr1.open('POST','http://localhost:54610/api/User/Login' );
+                xhr1.open('POST', url.url +'/api/User/Login' );
                 xhr1.setRequestHeader("Content-Type", "application/json");
                 xhr1.send(JSON.stringify((object)));
          }
@@ -79,7 +92,7 @@ function editDetails() {
        }
      };
  
-     xhr.open('PUT','http://localhost:54610/api/User/UpdateUser' );
+     xhr.open('PUT', url.url +'/api/User/UpdateUser' );
      xhr.setRequestHeader("Content-Type", "application/json");
      xhr.send(JSON.stringify((userDetails)));
      
@@ -123,7 +136,7 @@ function editDetails() {
      }
    };
 
-   xhr.open('PUT','http://localhost:54610/api/User/updatePassword' );
+   xhr.open('PUT',url.url +'/api/User/updatePassword' );
    xhr.setRequestHeader("Content-Type", "application/json");
    xhr.send(JSON.stringify((userPassword)));
    
@@ -173,7 +186,7 @@ const handleSubmitEmail = (event) => {
     }
    };
 
-   xhr.open('PUT','http://localhost:54610/api/User/updateEmail' );
+   xhr.open('PUT', url.url +'/api/User/updateEmail' );
    xhr.setRequestHeader("Content-Type", "application/json");
    xhr.send(JSON.stringify((userEmail)));
    

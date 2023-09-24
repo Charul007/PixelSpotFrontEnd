@@ -3,6 +3,8 @@ import React,{ useState, useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
 import '../popular/OtherProfile.css';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import url  from '../url.json';
+
 
 
 
@@ -10,6 +12,8 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 function OtherProfile(props)
 {
   const history = useHistory();
+
+
 
   const userId = props.location.state;
   const [allPhoto, setAllPhoto] = useState([]);
@@ -31,7 +35,7 @@ function OtherProfile(props)
      debugger;
            }
          };
-         xhr.open("GET", "http://localhost:54610/api/User/getUserById/"+userId);
+         xhr.open("GET", url.url + "/api/User/getUserById/"+userId);
          xhr.send();
 
   };
@@ -49,7 +53,7 @@ debugger;
       debugger;
     }
   };
-  xhr.open("GET", "http://localhost:54610/api/Photo/getProfile/"+userId);
+  xhr.open("GET", url.url + "/api/Photo/getProfile/"+userId);
   xhr.send();
 
 };
@@ -71,7 +75,7 @@ debugger;
               debugger;
                     }
                   };
-                  xhr.open("GET", "http://localhost:54610/api/Photo/popular/"+userId);
+                  xhr.open("GET", url.url+"/api/Photo/popular/"+userId);
                   xhr.send();
           };
 

@@ -3,10 +3,16 @@ import React,{ useState, useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
 import './AboutMe.css';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import url  from '../url.json';
+
 
 function AboutMe(props)
 {
   const history = useHistory();
+  if(localStorage.getItem("login")==null)
+  {
+    history.push('/login');
+  }
 
   const userId = props.location.state;
   const [allPhoto, setAllPhoto] = useState([]);
@@ -34,7 +40,7 @@ function AboutMe(props)
              debugger;
                    }
                  };
-                 xhr.open("GET", "http://localhost:54610/api/User/getUserById/"+userId);
+                 xhr.open("GET", url.url + "/api/User/getUserById/"+userId);
                  xhr.send();
          };
 
@@ -56,7 +62,7 @@ debugger;
       debugger;
     }
   };
-  xhr.open("GET", "http://localhost:54610/api/Photo/getProfile/"+userId);
+  xhr.open("GET",  url.url + "/api/Photo/getProfile/"+userId);
   xhr.send();
 
 };

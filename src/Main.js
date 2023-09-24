@@ -28,6 +28,9 @@ import Registration from './component/Signup/Signup.jsx';
 import AddCollection from './component/addCollection/AddCollection.jsx';
 import Public from './component/public/Public.jsx';
 import DashBoard from './srcAdmin/components/AdminPanel/Dashboard.jsx'
+import adminAboutUs from '../src/srcAdmin/components/AdminPanel/AboutUs.jsx';
+import adminsetting from './component/editDetails/editDetails.jsx';
+import Sidebar from './srcAdmin/components/Common/Sidebar.jsx';
 
 function Main()
 {
@@ -70,7 +73,11 @@ function Main()
                         <Route exact path="/addCollection" component={AddCollection}/>
                         <Route exact path="/public" component={Public}/>
                         <Route exact path="/admin" component={DashBoard}/>
+                        <Route exact path="/adminAboutUs" component={adminAboutUs}/>
+                        <Route exact path="/adminsetting" component={adminsetting}/>
+                        <Route exact path="/Sidebar" component={Sidebar}/>
 
+                        
                        
                         </Switch>
                     

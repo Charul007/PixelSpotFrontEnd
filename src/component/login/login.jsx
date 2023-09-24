@@ -3,6 +3,8 @@ import '../login/login.css';
 import { useHistory } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import url  from '../url.json';
+
 
 
 
@@ -56,7 +58,7 @@ function Login() {
        }
      };
  
-     xhr.open('POST','http://localhost:54610/api/User/Login' );
+     xhr.open('POST',url.url + '/api/User/Login' );
      xhr.setRequestHeader("Content-Type", "application/json");
      xhr.send(JSON.stringify((enquiryuser)));
      
@@ -82,7 +84,7 @@ function Login() {
      
    }
  };
- xhr.open('GET','http://localhost:54610/api/Email/email?getEmail='+login.email );
+ xhr.open('GET',url.url + '/api/Email/email?getEmail='+login.email );
  xhr.setRequestHeader("Content-Type", "application/json");
  xhr.send();
 

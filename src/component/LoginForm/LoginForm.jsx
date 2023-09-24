@@ -5,6 +5,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useContext } from 'react';
 import { AppContext } from '../../index.js' ;
+import url  from '../url.json';
+
 
 function LoginForm() {
 
@@ -52,7 +54,7 @@ function LoginForm() {
     var userobject = { u_email : user.email ,
     u_password : user.password};
 
-  const apiUrl = selectedRole === 'admin' ? 'http://localhost:54610/api/Admin/Login' : 'http://localhost:54610/api/User/Login';
+  const apiUrl = selectedRole === 'admin' ? url.url+'/api/Admin/Login' : url.url+'/api/User/Login';
 
 
     if (validateForm()) {
@@ -140,7 +142,7 @@ function LoginForm() {
       
     }
   };
-  xhr.open('GET','http://localhost:54610/api/Email/email?getEmail='+user.email );
+  xhr.open('GET',url.url+'/api/Email/email?getEmail='+user.email );
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.send();
  

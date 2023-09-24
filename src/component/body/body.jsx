@@ -6,8 +6,9 @@ import { useContext } from 'react';
 import { AppContext } from '../../index.js';
 import { IconButton, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { AddIcon, HamburgerIcon } from '@chakra-ui/icons';
+import url  from '../url.json';
 
-function Body() {
+function Body(props) {
   const [showMenuId, setShowMenuId] = useState([]);
   const [data, setData] = useState([]);
   const [mdata, msetData] = useState([]);
@@ -21,10 +22,16 @@ function Body() {
 
   const { user } = useContext(AppContext);
 
+//  const prop =  props.location.state;
 
-  // debugger;
+  debugger;
+ 
+  console.log(url.url);
+  
 
   const history = useHistory();
+
+
   if (localStorage.getItem("data") != null) {
     const localData = localStorage.getItem('data');
     localStorage.removeItem('data');
@@ -61,7 +68,7 @@ function Body() {
           debugger;
         }
       };
-      xhr.open("GET", "http://localhost:54610/api/Photo/getLike/" + user.u_id);
+      xhr.open("GET", url.url + "/api/Photo/getLike/" + user.u_id);
       xhr.send();
     }
     else {
@@ -83,10 +90,10 @@ function Body() {
         msetData(responseData);
         console.log(responseData);
         getLikePhoto();
-        debugger;
+        // debugger;
       }
     };
-    xhr.open("GET", "http://localhost:54610/api/Photo/getPhotos");
+    xhr.open("GET", url.url + "/api/Photo/getPhotos");
     xhr.send();
   };
 
@@ -96,9 +103,6 @@ function Body() {
 
 
     fetchData();
-
-
-
 
   }, [user]);
 
@@ -122,11 +126,13 @@ function Body() {
             console.log(responseSendLike)
             history.push('/');
             debugger;
+            fetchData();
+
 
 
           }
         };
-        xhr.open("POST", "http://localhost:54610/api/Photo/postLike");
+        xhr.open("POST", url.url + "/api/Photo/postLike");
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(JSON.stringify(sendLike));
         fetchData();
@@ -157,10 +163,12 @@ function Body() {
           // event.target.style.color = 'red';
           history.push('/');
           debugger;
+          fetchData();
+
 
         }
       };
-      xhr.open("POST", "http://localhost:54610/api/Photo/deleteLike");
+      xhr.open("POST", url.url + "/api/Photo/deleteLike");
       xhr.setRequestHeader("Content-Type", "application/json");
       xhr.send(JSON.stringify(deleteLike));
       fetchData();
@@ -176,7 +184,7 @@ function Body() {
   return (
     <div style={{ paddingLeft: 100, paddingRight: 100, textAlign: 'center' }}>
 
-      <div className='parentdiv' >
+      <div className='parentdivs' >
 
         {data.map((item, index) =>
         (
@@ -209,7 +217,7 @@ function Body() {
                   <MenuItem onClick={() => history.push('/popular', item.u_id)} >
                     Profile
                   </MenuItem>
-                  <MenuItem onClick={() => history.push('/report', item.u_id)} >
+                  <MenuItem onClick={() => history.push('/report', item.p_id)} >
                     Report
                   </MenuItem>
                   <MenuItem >

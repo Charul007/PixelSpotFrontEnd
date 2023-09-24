@@ -9,7 +9,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useContext } from 'react';
 import { AppContext } from '../../index.js' ;
 import { Avatar } from '@chakra-ui/react';
- 
+import url  from '../url.json';
+
 
 
 function Header()
@@ -69,10 +70,11 @@ function Header()
             
             localStorage.setItem("data", JSON.stringify(responseData));
             history.push("/")
+            debugger;
            
           }
         };
-           xhr.open('GET','http://localhost:54610/api/Photo/photoCategoryName?categoryName='+category);
+           xhr.open('GET', url.url + '/api/Photo/photoCategoryName?categoryName='+category);
 
       
         xhr.send();
@@ -115,7 +117,7 @@ function Header()
                 }
               };
 
-              xhr.open('GET','http://localhost:54610/api/User/Logout/'+ users.u_id);
+              xhr.open('GET', url.url +'/api/User/Logout/'+ users.u_id);
               xhr.send();
     
               localStorage.removeItem("login");
@@ -131,7 +133,7 @@ function Header()
               {history.push("/upload");}
             }
 
-
+const fetchdata = "fetchdata()";
        
 
 
@@ -140,8 +142,8 @@ function Header()
            <ToastContainer />
             <div className='bg1'>
                     <div className='bg1-1'>
-                    <Link to="/" style={{color:'white'}}>PIXELSPOT</Link>
-                     {/* <button className='bg1-2-bt1' onClick={()=>{history.push("/")}}>PIXELSPOT</button> */}
+                    {/* <Link to="/" style={{color:'white'}}>PIXELSPOT</Link> */}
+                     <button className='bg1-2-bt1' onClick={()=>{history.push("/",fetchdata)}}>PIXELSPOT</button>
                     </div>
                     <div style={{display:'flex',alignItems: 'center'}} >
                         <button className='bg1-2-bt1' onClick={renderToUpload}>{user.user !=null ? "Upload" : "Login" }</button>

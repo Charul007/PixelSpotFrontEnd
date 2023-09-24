@@ -3,6 +3,8 @@ import '../LoginForm/Login.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useHistory } from 'react-router-dom';
+import url  from '../url.json';
+
 
 
 function LoginForm() {
@@ -50,7 +52,7 @@ function LoginForm() {
     u_password : user.password};
     if (validateForm()) {
       // debugger;
-      fetch('http://localhost:54610/api/User/Login', {
+      fetch(url.url + '/api/User/Login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

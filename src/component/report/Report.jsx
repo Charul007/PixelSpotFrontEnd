@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../report/Report.css';
+import url  from '../url.json';
 
 
 function Report(props) {
@@ -56,7 +57,7 @@ function Report(props) {
        }
      };
  
-     xhr.open('POST','http://localhost:54610/api/User/setSpamPhoto');
+     xhr.open('POST',url.url+'/api/User/setSpamPhoto');
      xhr.setRequestHeader("Content-Type", "application/json");
      xhr.send(JSON.stringify(spdetails));
      

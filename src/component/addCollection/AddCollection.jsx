@@ -3,12 +3,18 @@ import { useHistory } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../addCollection/AddCollection.css';
+import url  from '../url.json';
+
 
 
 function AddCollection() {
 
   debugger
   const history =  useHistory()
+  if(localStorage.getItem("login")==null)
+  {
+    history.push('/login');
+  }
 
   const user = JSON.parse(localStorage.getItem("login"));
 
@@ -53,7 +59,7 @@ function AddCollection() {
        }
      };
  
-     xhr.open('POST','http://localhost:54610/api/Photo/setCollection/'+ user.u_id);
+     xhr.open('POST', url.url +'/api/Photo/setCollection/'+ user.u_id);
      xhr.setRequestHeader("Content-Type", "application/json");
      xhr.send(JSON.stringify(spdetails));
      
