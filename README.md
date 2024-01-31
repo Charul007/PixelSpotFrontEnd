@@ -2,3 +2,6 @@
 
 
 ![Screenshot 2023-08-28 183921](https://github.com/Charul007/PixelSpotFrontEnd/assets/130982686/4ba51d5b-b06c-4732-96e1-ad593e1627ed)
+
+
+## To properly replicate PixelSpot, it's necessary to clone its backend as well.
